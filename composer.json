@@ -1,0 +1,16 @@
+{
+  "name": "digitoimistodude/breadcrumb-trail",
+  "type": "wordpress-plugin",
+  "description": "A powerful script for adding breadcrumbs to your site that supports Schema.org, HTML5-valid microdata.",
+  "homepage": "https://github.com/digitoimistodude/breadcrumb-trail",
+  "keywords": [
+    "wordpress",
+    "plugin"
+  ],
+  "license": "GPLv2",
+  "version": "1.1.0",
+  "authors": [{
+    "name": "Justin Tadlock",
+    "homepage": "https://github.com/justintadlock"
+  }]
+}
