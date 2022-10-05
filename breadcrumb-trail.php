@@ -20,6 +20,9 @@ add_action( 'plugins_loaded', 'breadcrumb_trail_setup' );
 # Check theme support. */
 add_action( 'after_setup_theme', 'breadcrumb_trail_theme_setup', 12 );
 
+# Polylang support
+add_filter( 'pll_home_url_white_list', 'breadcrumb_trail_allow_pll_home_url' );
+
 /**
  * Plugin setup. For now, it just loads the translation.
  *
@@ -30,6 +33,17 @@ add_action( 'after_setup_theme', 'breadcrumb_trail_theme_setup', 12 );
 function breadcrumb_trail_setup() {
 
 	load_plugin_textdomain( 'breadcrumb-trail', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ) . 'lang' );
+}
+
+/**
+ * Allow Polylang to filter home_url function in this plugin.
+ *
+ * @since  1.2.0
+ * @access public
+ * @return array
+ */
+function breadcrumb_trail_allow_pll_home_url( $allowlist ) {
+	return array_merge( $allowlist, array( array( 'file' => 'breadcrumbs' ) ) );
 }
 
 /**
