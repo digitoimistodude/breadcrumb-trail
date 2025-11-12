@@ -561,21 +561,34 @@ class Breadcrumb_Trail {
 
 		// Get some taxonomy and term variables.
 		$term           = get_queried_object();
+
+		// Check if term is null before accessing its properties.
+		if ( ! $term || ! isset( $term->taxonomy ) ) {
+			return;
+		}
+
 		$taxonomy       = get_taxonomy( $term->taxonomy );
 		$done_post_type = false;
+
+		// Check if taxonomy is valid before accessing its properties.
+		if ( ! $taxonomy ) {
+			return;
+		}
 
 		// If there are rewrite rules for the taxonomy.
 		if ( false !== $taxonomy->rewrite ) {
 
 			// If 'with_front' is true, dd $wp_rewrite->front to the trail.
-			if ( $taxonomy->rewrite['with_front'] && $wp_rewrite->front )
+			if ( ! empty( $taxonomy->rewrite['with_front'] ) && $wp_rewrite->front )
 				$this->add_rewrite_front_items();
 
 			// Get parent pages by path if they exist.
-			$this->add_path_parents( $taxonomy->rewrite['slug'] );
+			if ( ! empty( $taxonomy->rewrite['slug'] ) ) {
+				$this->add_path_parents( $taxonomy->rewrite['slug'] );
+			}
 
 			// Add post type archive if its 'has_archive' matches the taxonomy rewrite 'slug'.
-			if ( $taxonomy->rewrite['slug'] ) {
+			if ( ! empty( $taxonomy->rewrite['slug'] ) ) {
 
 				$slug = trim( $taxonomy->rewrite['slug'], '/' );
 
@@ -623,7 +636,7 @@ class Breadcrumb_Trail {
 		}
 
 		// If there's a single post type for the taxonomy, use it.
-		if ( false === $done_post_type && 1 === count( $taxonomy->object_type ) && post_type_exists( $taxonomy->object_type[0] ) ) {
+		if ( false === $done_post_type && ! empty( $taxonomy->object_type ) && is_array( $taxonomy->object_type ) && 1 === count( $taxonomy->object_type ) && post_type_exists( $taxonomy->object_type[0] ) ) {
 
 			// If the post type is 'post'.
 			if ( 'post' === $taxonomy->object_type[0] ) {
