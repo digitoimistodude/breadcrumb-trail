@@ -10,13 +10,13 @@ This script won't work automatically because there's no way for me to know where
 
 The basic code you need is:
 
-```
+```php
 <?php breadcrumb_trail(); ?>
 ```
 
 Actually, you should always wrap it in a `functions_exists()` check too like so:
 
-```
+```php
 <?php if ( function_exists( 'breadcrumb_trail' ) ) breadcrumb_trail(); ?>
 ```
 
@@ -26,7 +26,7 @@ That's all you need to do to add breadcrumbs to your site.  Of course, you can c
 
 The `breadcrumb_trail()` function accepts a single parameter of `$args`, which is an array of arguments for deciding how your breadcrumbs should behave.  The default arguments are the following.
 
-```
+```php
 $defaults = array(
 	'container'       => 'nav',
 	'before'          => '',
