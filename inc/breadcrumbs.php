@@ -636,10 +636,11 @@ class Breadcrumb_Trail {
 		}
 
 		// If there's a single post type for the taxonomy, use it.
-		if ( false === $done_post_type && ! empty( $taxonomy->object_type ) && is_array( $taxonomy->object_type ) && 1 === count( $taxonomy->object_type ) && post_type_exists( $taxonomy->object_type[0] ) ) {
+		$first_object_type = ! empty( $taxonomy->object_type ) && is_array( $taxonomy->object_type ) ? reset( $taxonomy->object_type ) : false;
+		if ( false === $done_post_type && 1 === count( $taxonomy->object_type ) && $first_object_type && post_type_exists( $first_object_type ) ) {
 
 			// If the post type is 'post'.
-			if ( 'post' === $taxonomy->object_type[0] ) {
+			if ( 'post' === $first_object_type ) {
 				$post_id = get_option( 'page_for_posts' );
 
 				if ( 'posts' !== get_option( 'show_on_front' ) && 0 < $post_id )
@@ -647,7 +648,7 @@ class Breadcrumb_Trail {
 
 			// If the post type is not 'post'.
 			} else {
-				$post_type_object = get_post_type_object( $taxonomy->object_type[0] );
+				$post_type_object = get_post_type_object( $first_object_type );
 
 				$label = ! empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
 

@@ -1,5 +1,20 @@
 # Change Log
 
+## [1.2.1] - 2026-01-22
+
+### Fixed
+
+* Fix undefined array key 0 warning in breadcrumbs.php by using reset() to safely access the first element of taxonomy object_type array regardless of array keys
+* Fix null/false property access and count() fatal error in add_term_archive_items
+* Fix code formatting for breadcrumb examples in readme
+
+## [1.2.0] - 2022-10-05
+
+### Added
+
+* Polylang support: Allow Polylang to filter home_url when creating breadcrumbs
+* Added composer.json for Composer support
+
 ## [1.1.0] - 2017-09-24
 
 ### Added
